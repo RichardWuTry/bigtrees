@@ -1,13 +1,13 @@
 <?php
 if (!defined('THINK_PATH')) exit();
-define('APP_PREFIX', 'bigtrees_');
-define('SESSION_COOKIE_PATH', '/bigtrees/');
+define('APP_PREFIX', 'btr_');
+define('SESSION_COOKIE_PATH', '/btr/');
 return array(
 	/* 数据库设置 */
     'DB_TYPE'               => 'mysql',     // 数据库类型
 	'DB_HOST'               => 'localhost', // 服务器地址
-	'DB_NAME'               => 'single30_bigtrees_db',          // 数据库名
-	'DB_USER'               => 'single30_bigtreesapp',      // 用户名
+	'DB_NAME'               => 'single30_btr_db',          // 数据库名
+	'DB_USER'               => 'single30_btrapp',      // 用户名
 	'DB_PWD'                => 'BaoChangJi',          // 密码
 	'DB_PORT'               => '3306',        // 端口
 	'DB_PREFIX'             => '',    // 数据库表前缀
@@ -27,9 +27,9 @@ return array(
 	/* 邮件服务器设置 */
 	'MAIL_HOST'				=> 'mail.1singlestep.com',
 	'MAIL_PORT'				=> 2626,
-	'MAIL_LOGINNAME'		=> 'bigtrees@1singlestep.com',
+	'MAIL_LOGINNAME'		=> 'btr@1singlestep.com',
 	'MAIL_PASSWORD'			=> 'BaoChangJi1',
-	'MAIL_REPLAY_ADDRESS'	=> 'bigtrees@1singlestep.com',
+	'MAIL_REPLAY_ADDRESS'	=> 'btr@1singlestep.com',
 	'MAIL_FROM_NAME'		=> '知行思新',	
 );
 ?>

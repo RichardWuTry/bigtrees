@@ -4,5 +4,9 @@ class UserAction extends Action {
 		clearSessionCookie();
 		redirect(__APP__.'/Index/index/');
 	}
+	
+	public function register() {
+		$this->display();
+	}
 }
 ?>
