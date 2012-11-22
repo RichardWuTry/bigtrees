@@ -2,35 +2,55 @@
 <title>欢迎你的加入</title>
 <link rel="stylesheet" href="__PUBLIC__/css/common.css" />
 <link rel="stylesheet" href="__PUBLIC__/css/sole_form.css" />
+<script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
+<script src="__PUBLIC__/javascript/InputValidate.js"></script>
+<script src="__PUBLIC__/javascript/jqTools.js"></script>
+<script>
+	var msg;
+	
+	$(function(){
+		msg = $('#topSlideMsg');
+	
+		$('#submit').click(function(event){
+			event.preventDefault();
+			//validate form input
+			if (!validateNonEmpty($('#username')[0], msg[0], '姓名不能为空', '')
+				|| !validateEmail($('#email')[0], msg[0], '请输入有效的Email', '')
+				|| !validateLength(6, 12, $('#password')[0], msg[0], '密码有效长度为6~12位', '')
+				|| !validateNonEmpty($('#mobile')[0], msg[0], '手机号不能为空', '')) {
+				slideBox(msg, 2000, 'red');
+				return false;
+			}
+			
+			//add post register info
+		});
+	});
+</script>
 <include file="./Tpl/Public/headend_bodystart_banner.html" />
 <div id="wrapper">
 	<div id="topSlideMsg"></div>
 	<div class="sole_form_wrapper">
-		<form method="post" action="__URL__/addUser" id="login_form">
+		<form method="post" action="__URL__/addUser" id="register_form">
 			<h1>申请参加大树活动</h1>
 			<div class="formbody">
 				<label for="username">
-					姓名
-					<br>
-					<input id="username" class="text" type="text" tabindex="1" style="width: 21em;" name="username">
+					<span>姓名</span>
+					<input id="username" class="text" type="text" tabindex="1" style="width:18em;" name="username">
 				</label>
 				<label for="email">
-					Email
-					<br>
-					<input id="email" class="text" type="text" tabindex="2" style="width: 21em;" name="email">
+					<span>Email</span>
+					<input id="email" class="text" type="text" tabindex="2" style="width:18em;" name="email">
 				</label>
 				<label for="password">
-					密码
-					<br>
-					<input id="password" class="text" type="password" value="" tabindex="3" style="width: 21em;" name="password" autocomplete="disabled">
+					<span>密码</span>
+					<input id="password" class="text" type="password" value="" tabindex="3" style="width:18em;" name="password" autocomplete="disabled">
 				</label>
 				<label for="mobile">
-					手机
-					<br>
-					<input id="mobile" class="text" type="text" tabindex="4" style="width: 21em;" name="mobile">
+					<span>手机</span>
+					<input id="mobile" class="text" type="text" tabindex="4" style="width:18em;" name="mobile">
 				</label>
 				<label class="submit_btn">
-					<input type="submit" value="Log in" tabindex="5" name="commit" class="btn">
+					<input type="submit" value="提 交" tabindex="5" class="btn" id="submit">
 				</label>
 			</div>
 		</form>

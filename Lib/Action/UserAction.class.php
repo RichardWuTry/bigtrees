@@ -8,5 +8,11 @@ class UserAction extends Action {
 	public function register() {
 		$this->display();
 	}
+	
+	public function addUser() {
+		if ($this->isPost()) {
+			
+		}
+	}
 }
 ?>
