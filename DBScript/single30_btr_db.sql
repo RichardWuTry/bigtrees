@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- 主机: localhost
--- 生成日期: 2012 年 11 月 21 日 17:00
+-- 生成日期: 2012 年 11 月 23 日 17:40
 -- 服务器版本: 5.5.8
 -- PHP 版本: 5.3.5
 
@@ -35,11 +35,6 @@ CREATE TABLE IF NOT EXISTS `event` (
   PRIMARY KEY (`event_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
---
--- 转存表中的数据 `event`
---
-
-
 -- --------------------------------------------------------
 
 --
@@ -55,11 +50,6 @@ CREATE TABLE IF NOT EXISTS `event_user` (
   PRIMARY KEY (`event_id`,`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- 转存表中的数据 `event_user`
---
-
-
 -- --------------------------------------------------------
 
 --
@@ -73,12 +63,8 @@ CREATE TABLE IF NOT EXISTS `user` (
   `password` char(40) NOT NULL,
   `mobile` varchar(20) NOT NULL,
   `is_active` tinyint(1) NOT NULL DEFAULT '0',
+  `is_admin` tinyint(1) NOT NULL DEFAULT '0',
   `create_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `modify_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
---
--- 转存表中的数据 `user`
---
-
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
