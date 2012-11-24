@@ -5,11 +5,15 @@ function verify()
 	Image::buildImageVerify(4, 1, 'gif');
 }
 
-function setSessionCookie($user_id, $user_name, $days) {
+function setSessionCookie($user_id, $user_name, $is_admin, $days) {
 	$_SESSION[APP_PREFIX.'user_id'] = $user_id;
 	$_SESSION[APP_PREFIX.'user_name'] = $user_name;
-	setcookie('user_id', $user_id, time() + (60 * 60 * 24 * $days), SESSION_COOKIE_PATH);
-	setcookie('user_name', $user_name, time() + (60 * 60 * 24 * $days), SESSION_COOKIE_PATH);
+	$_SESSION[APP_PREFIX.'is_admin'] = $is_admin;
+	
+	$seconds = time() + (60 * 60 * 24 * $days);
+	setcookie('user_id', $user_id, $seconds, SESSION_COOKIE_PATH);
+	setcookie('user_name', $user_name, $seconds, SESSION_COOKIE_PATH);
+	setcookie('is_admin', $is_admin, $seconds, SESSION_COOKIE_PATH);
 }
 
 function clearSessionCookie() {
@@ -26,6 +30,7 @@ function clearSessionCookie() {
 	// 删除user_id和username cookies
 	setcookie('user_id', '', time() - 3600, SESSION_COOKIE_PATH);
 	setcookie('user_name', '', time() - 3600, SESSION_COOKIE_PATH);
+	setcookie('is_admin', '', time() - 3600, SESSION_COOKIE_PATH);
 }
 
 function isLogin() {
