@@ -41,8 +41,9 @@ class UserAction extends Action {
 			if ($currUser = $User->where("email = '$email' and password = '$password' and is_active = 1")
 								->field("user_id, username, is_admin")
 								->find()) {
-				setSessionCookie($currUser['user_id'], $currUser['username'], $currUser['is_admin'], 1);
-				$this->success();	
+				$is_admin = $currUser['is_admin'];
+				setSessionCookie($currUser['user_id'], $currUser['username'], $is_admin, 1);
+				$this->success($is_admin);	
 			} else {
 				$this->error('Email或密码有误');
 			}

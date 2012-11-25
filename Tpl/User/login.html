@@ -34,7 +34,12 @@
 		//process login ajax response
 		function loginResponse(data) {
 			if (data.status == 1) {
-				window.location = "__APP__/Event/list";
+				// is admin
+				if (data.info == 1) {
+					window.location = "__APP__/Admin/Userlist";
+				} else {
+					window.location = "__APP__/Profile/index";
+				}				
 			} else {
 				slideBox(msg.text(data.info), 2000, 'red');
 			}			

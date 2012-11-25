@@ -47,6 +47,19 @@ function isLogin() {
 	}
 }
 
+function isAdmin() {
+	if (isset($_SESSION[APP_PREFIX.'is_admin'])) {
+		return true;
+	} else {
+		if (isset($_COOKIE['is_admin'])){
+			$_SESSION[APP_PREFIX.'is_admin'] = $_COOKIE['is_admin'];
+			return true;
+		} else {
+			return false;
+		}
+	}
+}
+
 function encryptNumToAlphabet($numStr)
 {
 	$output = "";
