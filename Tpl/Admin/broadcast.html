@@ -1,0 +1,72 @@
+<include file="./Tpl/Public/headstart.html" />
+<title>成员管理</title>
+<link rel="stylesheet" href="__PUBLIC__/css/common.css" />
+<link rel="stylesheet" href="__PUBLIC__/css/panel.css" />
+<link rel="stylesheet" href="__PUBLIC__/css/head_panel.TopRightBtn.css" />
+<style>
+	header, #wrapper {
+		margin: 0 auto;
+		width: 960px;
+	}
+	
+	header {
+		padding-bottom: 30px;
+	}
+	
+	.panelbody span, .panelbody div, .panelbody input {
+		font-size:15px;
+	}
+	
+	#content {
+		width:100%;
+		min-width:400px;
+		height:400px;
+	}
+</style>
+<script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
+<script src="http://js.nicedit.com/nicEdit-latest.js"></script>
+<script>
+	$(function(){
+		var msg = $('#topSlideMsg');
+		
+		var mailBody = new nicEditor({buttonList : ['fontSize','bold','italic','underline','forecolor','bgcolor']}).panelInstance('content');
+	});
+</script>
+<include file="./Tpl/Public/headend_bodystart_banner.html" />
+<div id="wrapper">
+	<div id="topSlideMsg"></div>
+	<div class="panel_wrapper">
+		<h1>大树广播</h1>
+		<div class="panelbody">
+			<table>
+				<tr>
+					<td>
+						<span>收件人</span>
+						<span></span>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<span>主&nbsp;&nbsp;&nbsp;&nbsp;题</span>
+						<span>
+							<input type="text" value="" id="title" name="title" />
+						</span>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<textarea id="content">
+						</textarea>
+					</td>					
+				</tr>
+			</table>
+			<div class="ctrl">
+				<label class="float_right">
+					<input type="button" value="发 送" class="btn" id="send" />
+					<input type="button" value="返 回" class="btn" id="back" />
+				</label>
+			</div>
+		</div>
+	</div>
+</div>
+<include file="./Tpl/Public/footer_bodyend.html" />

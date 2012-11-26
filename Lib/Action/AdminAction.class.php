@@ -15,5 +15,12 @@ class AdminAction extends Action {
 		$this->assign('username', $_SESSION[APP_PREFIX.'user_name']);
 		$this->display();
 	}
+	
+	public function eventMail() {
+		if(isset($_GET['ids'])) {
+			$ids = $_GET['ids'];
+			$this->display();
+		}		
+	}
 }
 ?>

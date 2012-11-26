@@ -37,6 +37,18 @@
 			}
 		});
 		
+		$('#sendEventNotice').click(function(){
+			var ids = '';
+			$('.send:checked').each(function(index){
+				if (index == 0) {
+					ids += $(this).val();
+				} else {
+					ids += ',' + $(this).val();
+				}
+			});
+			window.location = "__URL__/broadcast/ids/" + ids;
+		});
+		
 		function enableRow($row) {
 			$row.removeClass('inactive');
 			$row.find('.send').prop('disabled', false);
@@ -67,7 +79,9 @@
 				<volist name="users" id="u" key="id">
 					<if condition="$u.is_active eq 1">
 						<tr>
-							<td style="text-align:center;"><input type="checkbox" class="send" /></td>
+							<td style="text-align:center;">
+								<input type="checkbox" class="send" value="{$u.user_id}" />
+							</td>
 							<td>{$id}</td>
 							<td>{$u.username}</td>
 							<td>{$u.email}</td>
@@ -78,7 +92,9 @@
 						</tr>
 					<else />
 						<tr class="inactive">
-							<td style="text-align:center;"><input type="checkbox" disabled="disabled" class="send" /></td>
+							<td style="text-align:center;">
+								<input type="checkbox" disabled="disabled" class="send" value="{$u.user_id}" />
+							</td>
 							<td>{$id}</td>
 							<td>{$u.username}</td>
 							<td>{$u.email}</td>
