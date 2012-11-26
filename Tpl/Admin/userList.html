@@ -3,7 +3,52 @@
 <link rel="stylesheet" href="__PUBLIC__/css/common.css" />
 <link rel="stylesheet" href="__PUBLIC__/css/panel.css" />
 <link rel="stylesheet" href="__PUBLIC__/css/head_panel.TopRightBtn.css" />
+<style>
+	header, #wrapper {
+		margin: 0 auto;
+		width: 960px;
+	}
+	
+	header {
+		padding-bottom: 30px;
+	}	
+</style>
 <script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
+<script>
+	var msg;
+
+	$(function(){
+		msg = $('#topSlideMsg');
+		
+		$('.activate').click(function(){
+			var $row = $(this).closest('tr');
+			if($(this).prop('checked')){
+				enableRow($row);
+			} else {
+				disableRow($row);			
+			}
+		});
+		
+		$('#sendAll').click(function(){
+			if ($('#sendAll').prop('checked')) {
+				$('.send:enabled').prop('checked', true);
+			} else {
+				$('.send:enabled').prop('checked', false);
+			}
+		});
+		
+		function enableRow($row) {
+			$row.removeClass('inactive');
+			$row.find('.send').prop('disabled', false);
+		}
+		
+		function disableRow($row) {
+			$row.addClass('inactive');
+			var $sendCbx = $row.find('.send');
+			$sendCbx.prop('checked', false).prop('disabled',true);
+		}
+	});
+</script>
 <include file="./Tpl/Public/headend_bodystart_banner.html" />
 <div id="wrapper">
 	<div id="topSlideMsg"></div>
@@ -19,8 +64,37 @@
 					<th>手机</th>
 					<th>激活</th>
 				</tr>
-				
+				<volist name="users" id="u" key="id">
+					<if condition="$u.is_active eq 1">
+						<tr>
+							<td style="text-align:center;"><input type="checkbox" class="send" /></td>
+							<td>{$id}</td>
+							<td>{$u.username}</td>
+							<td>{$u.email}</td>
+							<td>{$u.mobile}</td>
+							<td style="text-align:center;">
+								<input type="checkbox" checked="checked" class="activate" />
+							</td>
+						</tr>
+					<else />
+						<tr class="inactive">
+							<td style="text-align:center;"><input type="checkbox" disabled="disabled" class="send" /></td>
+							<td>{$id}</td>
+							<td>{$u.username}</td>
+							<td>{$u.email}</td>
+							<td>{$u.mobile}</td>
+							<td style="text-align:center;">
+								<input type="checkbox" class="activate" />
+							</td>
+						</tr>					
+					</if>
+				</volist>
 			</table>
+			<div class="ctrl">
+				<label class="float_right">
+					<input type="button" value="发送活动通知" class="btn" id="sendEventNotice" />
+				</label>
+			</div>
 		</div>
 	</div>
 </div>

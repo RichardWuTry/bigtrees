@@ -8,6 +8,11 @@ class AdminAction extends Action {
 	}
 
 	public function userList() {
+		$User = M('User');
+		if ($users = $User->select()) {
+			$this->assign('users', $users);
+		}		
+		$this->assign('username', $_SESSION[APP_PREFIX.'user_name']);
 		$this->display();
 	}
 }
