@@ -22,6 +22,12 @@
 		min-width:400px;
 		height:370px;
 	}
+	
+	.receiver {
+		padding:3px;
+		margin:3px;
+		background-color:#FFFFFF;
+	}
 </style>
 <script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
 <script src="http://js.nicedit.com/nicEdit-latest.js"></script>
@@ -30,6 +36,25 @@
 		var msg = $('#topSlideMsg');
 		
 		var mailBody = new nicEditor({buttonList : ['fontSize','bold','italic','underline','forecolor','bgcolor']}).panelInstance('content');
+		
+		$('.receiver').hover(			
+			function() {
+				$receiver = $(this).find('.delReceiver');
+				$receiver.removeClass('hide');
+			},
+			function() {
+				$receiver = $(this).find('.delReceiver');
+				$receiver.addClass('hide');
+			}
+		);
+		
+		$('.delReceiver').click(function(){
+			$(this).closest('span.receiver').remove();
+		});
+		
+		$('#back').click(function(){
+			window.location = "__URL__/userList";
+		});
 	});
 </script>
 <include file="./Tpl/Public/headend_bodystart_banner.html" />
@@ -39,17 +64,21 @@
 		<h1>大树广播</h1>
 		<div class="panelbody">
 			<table>
-				<tr>
+				<tr style="line-height:30px;">
 					<td>
-						<span>收件人</span>
-						<span></span>
+						<span style="padding-right:10px;">收件人</span>
+						<volist name="users" id="u">
+							<span title="{$u.email}" class="receiver">
+								{$u.username}&nbsp;<img src="__PUBLIC__/images/delete.png" alt="del" class="delReceiver hide" />
+							</span>
+						</volist>
 					</td>
 				</tr>
-				<tr>
+				<tr style="line-height:30px;">
 					<td>
-						<span>主&nbsp;&nbsp;&nbsp;&nbsp;题</span>
+						<span style="padding-right:10px;">主&nbsp;&nbsp;&nbsp;&nbsp;题</span>
 						<span>
-							<input type="text" value="" id="title" name="title" />
+							<input type="text" value="" id="title" name="title" style="width:840px;padding:2px;" />
 						</span>
 					</td>
 				</tr>

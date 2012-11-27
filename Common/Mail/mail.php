@@ -22,7 +22,6 @@
 		$mail->Subject = $subject;
 		$mail->MsgHTML($body);
 
-
 		if(!$mail->Send())
 		{		   
 		   return false;

@@ -14,19 +14,14 @@
 	}	
 </style>
 <script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
+<script src="__PUBLIC__/javascript/jqTools.js"></script>
 <script>
-	var msg;
-
 	$(function(){
-		msg = $('#topSlideMsg');
+		var msg = $('#topSlideMsg');
 		
 		$('.activate').click(function(){
 			var $row = $(this).closest('tr');
-			if($(this).prop('checked')){
-				enableRow($row);
-			} else {
-				disableRow($row);			
-			}
+			activateRow($row, $(this).prop('checked'));
 		});
 		
 		$('#sendAll').click(function(){
@@ -49,15 +44,34 @@
 			window.location = "__URL__/broadcast/ids/" + ids;
 		});
 		
-		function enableRow($row) {
-			$row.removeClass('inactive');
-			$row.find('.send').prop('disabled', false);
+		function activateRow($row, is_active) {
+			var $sendCbx = $row.find('input.send');
+			var user_id = $sendCbx.val();
+			if (is_active) {
+				$row.removeClass('inactive');
+				$sendCbx.prop('disabled', false);
+			} else {
+				$row.addClass('inactive');
+				$sendCbx.prop('checked', false).prop('disabled',true);
+			}
+			
+			var data = {
+				'user_id': user_id,
+				'is_active': (is_active ? 1 : 0)
+			}
+			
+			$.post(
+				"__URL__/activateUser",
+				data,
+				activateUserResponse,
+				"json"
+			);
 		}
 		
-		function disableRow($row) {
-			$row.addClass('inactive');
-			var $sendCbx = $row.find('.send');
-			$sendCbx.prop('checked', false).prop('disabled',true);
+		function activateUserResponse(data) {
+			if (data.status == 0) {
+				slideBox(msg.text(data.info), 2000, 'red');
+			}
 		}
 	});
 </script>
