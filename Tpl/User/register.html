@@ -24,6 +24,8 @@
 			
 			var data = $('#register_form').serializeArray();
 			$('#register_form input').prop('disabled', true);
+			$('#submit').css('background-color', '#FFFFFF')
+						.html('<img src="__PUBLIC__/images/waiting.gif" alt="wait" style="vertical-align:middle;" /> 提交中...');
 			
 			//post register info
 			$.post(
@@ -42,6 +44,7 @@
 			} else {
 				slideBox(msg.text(data.info), 2000, 'red');
 				$('#register_form input').prop('disabled', false);
+				$('#submit').css('background-color', '#F0F0F0').text('提 交');				
 			}			
 		}
 	});
@@ -70,7 +73,7 @@
 					<input id="mobile" class="text" type="text" tabindex="4" style="width:18em;" name="mobile">
 				</label>
 				<label class="submit_btn">
-					<input type="submit" value="提 交" tabindex="5" class="btn" id="submit">
+					<button id="submit" class="btn" tabindex="5">提 交</button>
 				</label>
 			</div>
 		</form>
