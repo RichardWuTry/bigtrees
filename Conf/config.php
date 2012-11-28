@@ -29,7 +29,8 @@ return array(
 	'MAIL_PORT'				=> 2626,
 	'MAIL_LOGINNAME'		=> 'btr@1singlestep.com',
 	'MAIL_PASSWORD'			=> 'BaoChangJi1',
-	'MAIL_REPLAY_ADDRESS'	=> 'btr@1singlestep.com',
-	'MAIL_FROM_NAME'		=> '知行思新',	
+	'MAIL_FROM_NAME'		=> '大树学习社区',
+	'MAIL_FROM_ADDRESS'		=> 'btr@1singlestep.com',	
+	'MAIL_REPLAY_ADDRESS'	=> array('shadow_wu82@163.com', 'shadow_wu8211@hotmail.com'),
 );
 ?>

@@ -11,6 +11,7 @@ class UserAction extends Action {
 	
 	public function addUser() {
 		if ($this->isPost()) {
+			$username = $_POST['username'];
 			$User = D('User');
 			if ($User->create()){
 				if(!preg_match('/^.{6,12}$/', $User->password)){
@@ -18,6 +19,15 @@ class UserAction extends Action {
 				}				
 				$User->password = sha1($User->password);
 				if($user_id = $User->add()) {
+					if ($admins = $User->where("is_active = 1 and is_admin = 1")
+									->field("email")
+									->select()){
+						$admins = array_map('implode', $admins);
+						$subject = $username.'申请参加大树活动';
+						$body = $username.'申请参加大树活动，请尽快审核。';
+						require_once COMMON_PATH.'/Mail/mail.php';
+						sendMail($admins, $subject, $body);
+					}
 					$this->success('您的申请已提交');
 				} else {
 					$this->error('申请提交失败');

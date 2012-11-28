@@ -12,9 +12,12 @@
 		$mail->Username = C('MAIL_LOGINNAME');
 		$mail->Password = C('MAIL_PASSWORD');
 		$mail->CharSet='UTF-8';
-
-		$mail->SetFrom(C('MAIL_REPLAY_ADDRESS'), C('MAIL_FROM_NAME'));
-		$mail->AddReplyTo(C('MAIL_REPLAY_ADDRESS'), C('MAIL_FROM_NAME'));
+		$mail->SetFrom(C('MAIL_FROM_ADDRESS'), C('MAIL_FROM_NAME'));
+		
+		$replayArray = C('MAIL_REPLAY_ADDRESS');
+		foreach($replayArray as $replay) {
+			$mail->AddReplyTo($replay);
+		}		
 		
 		foreach($addressArray as $address){
 			$mail->AddAddress($address);
