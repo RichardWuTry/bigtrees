@@ -30,6 +30,21 @@ class AdminAction extends Action {
 		}		
 	}
 	
+	public function sendBroadcast() {
+		if ($this->isPost()) {
+			$receivers = $_POST['receivers'];
+			$title = $_POST['title'];
+			$body = $_POST['body'];
+			
+			require_once COMMON_PATH.'/Mail/mail.php';
+			if (sendMail($receivers, $title, $body)){
+				$this->success('邮件发送成功');
+			} else {
+				$this->error('邮件发送失败');
+			}
+		}
+	}
+	
 	public function activateUser() {
 		if ($this->isPost()) {
 			$User = M('User');

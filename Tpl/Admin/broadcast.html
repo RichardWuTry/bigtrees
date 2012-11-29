@@ -17,6 +17,10 @@
 		font-size:15px;
 	}
 	
+	#content_wrapper {
+		background-color:#FFFFFF;
+	}
+	
 	#content {
 		width:100%;
 		min-width:400px;
@@ -31,11 +35,13 @@
 </style>
 <script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
 <script src="http://js.nicedit.com/nicEdit-latest.js"></script>
+<script src="__PUBLIC__/javascript/InputValidate.js"></script>
+<script src="__PUBLIC__/javascript/jqTools.js"></script>
 <script>
 	$(function(){
 		var msg = $('#topSlideMsg');
 		
-		var mailBody = new nicEditor({buttonList : ['fontSize','bold','italic','underline','forecolor','bgcolor']}).panelInstance('content');
+		new nicEditor({buttonList : ['fontSize','bold','italic','underline','forecolor','ol','ul']}).panelInstance('content');
 		
 		$('.receiver').hover(			
 			function() {
@@ -52,9 +58,57 @@
 			$(this).closest('span.receiver').remove();
 		});
 		
-		$('#back').click(function(){
+		$('#back').click(function(event){
+			event.preventDefault();
+			
 			window.location = "__URL__/userList";
 		});
+		
+		$('#send').click(function(event){
+			event.preventDefault();
+			
+			var receivers = new Array();
+			$('.receiver').each(function(){
+				receivers.push($(this).prop('title'));
+			});
+			var title = $('#title').val();
+			var body = nicEditors.findEditor('content').getContent();
+			
+			if (!arrNonEmpty(receivers, msg[0], '收件人不能为空', '')
+				|| !valNonEmpty(title, msg[0], '主题不能为空', '')
+				|| !valNonEmpty(body, msg[0], '内容不能为空', '')) {
+				slideBox(msg, 2000, 'red');
+				return false;
+			}
+			
+			var data = {
+				"receivers": receivers,
+				"title": title,
+				"body": body
+			};
+			
+			$('#send').prop('disabled', true)
+					.css('background-color', '#FFFFFF')
+					.html('<img src="__PUBLIC__/images/waiting.gif" alt="wait" style="vertical-align:middle;" /> 邮件正在发送中...');
+			
+			$.post(
+				'__URL__/sendBroadcast',
+				data,
+				sendBroadcastResponse,
+				'json'
+			);
+		});
+		
+		function sendBroadcastResponse(data) {
+			if (data.status == 1) {
+				slideBox(msg.text(data.info), 2000, 'green');				
+			} else {
+				slideBox(msg.text(data.info), 2000, 'red');
+			}
+			$('#send').css('background-color', '#F0F0F0')
+					.text('发 送')
+					.prop('disabled', false);
+		}
 	});
 </script>
 <include file="./Tpl/Public/headend_bodystart_banner.html" />
@@ -84,15 +138,17 @@
 				</tr>
 				<tr>
 					<td>
-						<textarea id="content">
-						</textarea>
+						<div id="content_wrapper">
+							<textarea id="content">
+							</textarea>
+						</div>
 					</td>					
 				</tr>
 			</table>
 			<div class="ctrl">
 				<label class="float_right">
-					<input type="button" value="发 送" class="btn" id="send" />
-					<input type="button" value="返 回" class="btn" id="back" />
+					<button id="send" class="btn">发 送</button>
+					<button id="back" class="btn">返 回</button>
 				</label>
 			</div>
 		</div>

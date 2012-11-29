@@ -89,6 +89,22 @@ function validateNonEmpty(inputField, helpText, helpMessage, errorImgHtml) {
 		errorImgHtml);
 }
 
+function valNonEmpty(value, helpText, msg) {
+	return validateRegEx(/.+/, value, helpText, msg, '');
+}
+
+function arrNonEmpty(arr, helpText, msg) {
+	if (arr.length > 0){
+		if (helpText != null)
+			helpText.innerHTML = "";
+		return true;	
+	} else {
+		if (helpText != null) 
+			helpText.innerHTML = msg;
+		return false;	
+	}
+}
+
 function validateLength(minLength, maxLength, inputField, helpText, helpMessage, errorImgHtml) {
 	// See if the input value contains at least minLength but no more than maxLength characters
 	var defaultHelpMessage = "Please enter a value " + minLength + " to " + maxLength +
