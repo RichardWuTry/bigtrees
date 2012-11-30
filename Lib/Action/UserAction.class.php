@@ -2,7 +2,7 @@
 class UserAction extends Action {
 	public function logout() {
 		clearSessionCookie();
-		redirect(__APP__.'/Index/index/');
+		redirect(__URL__.'/login/');
 	}
 	
 	public function register() {
