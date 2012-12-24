@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- 主机: localhost
--- 生成日期: 2012 年 11 月 23 日 17:40
+-- 生成日期: 2012 年 12 月 24 日 11:01
 -- 服务器版本: 5.5.8
 -- PHP 版本: 5.3.5
 
@@ -62,9 +62,10 @@ CREATE TABLE IF NOT EXISTS `user` (
   `email` varchar(100) NOT NULL,
   `password` char(40) NOT NULL,
   `mobile` varchar(20) NOT NULL,
+  `profession` varchar(10) NOT NULL,
   `is_active` tinyint(1) NOT NULL DEFAULT '0',
   `is_admin` tinyint(1) NOT NULL DEFAULT '0',
   `create_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `modify_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`user_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=29 ;

@@ -17,7 +17,8 @@
 			if (!validateNonEmpty($('#username')[0], msg[0], '姓名不能为空', '')
 				|| !validateEmail($('#email')[0], msg[0], '请输入有效的Email', '')
 				|| !validateLength(6, 12, $('#password')[0], msg[0], '密码有效长度为6~12位', '')
-				|| !validateNonEmpty($('#mobile')[0], msg[0], '手机号不能为空', '')) {
+				|| !validateNonEmpty($('#mobile')[0], msg[0], '手机号不能为空', '')
+				|| !validateNonEmpty($('#profession')[0], msg[0], '职业不能为空', '')) {
 				slideBox(msg, 2000, 'red');
 				return false;
 			}
@@ -74,6 +75,10 @@
 				<label for="mobile">
 					<span>手机</span>
 					<input id="mobile" class="text" type="text" tabindex="4" style="width:18em;" name="mobile">
+				</label>
+				<label for="profession">
+					<span>职业</span>
+					<input id="profession" class="text" type="text" tabindex="5" style="width:18em;" name="profession">
 				</label>
 				<label class="submit_btn">
 					<button id="submit" class="btn" tabindex="5">提 交</button>
