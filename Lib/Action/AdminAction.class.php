@@ -57,5 +57,18 @@ class AdminAction extends Action {
 			}
 		}
 	}
+	
+	public function updateMemo() {
+		if ($this->isPost()) {
+			$User = M('User');
+			$data['user_id'] = $_POST['user_id'];
+			$data['memo'] = $_POST['memo'];
+			if ($User->save($data)) {
+				$this->success('备注已保存');
+			} else {
+				$this->error('备注未保存');
+			}
+		}
+	}
 }
 ?>

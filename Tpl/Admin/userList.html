@@ -11,7 +11,12 @@
 	
 	header {
 		padding-bottom: 30px;
-	}	
+	}
+
+	#userList textarea {
+		height:80px;
+		width:190px;
+	}
 </style>
 <script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
 <script src="__PUBLIC__/javascript/jqTools.js"></script>
@@ -44,6 +49,29 @@
 			window.location = "__URL__/broadcast/ids/" + ids;
 		});
 		
+		var origMemo = '';
+		$('#userList textarea').focus(function(){
+			origMemo = $(this).val();
+		});
+		
+		$('#userList textarea').blur(function(){
+			var currMemo = $(this).val();
+			if (currMemo != origMemo) {
+				var user_id = parsePkId($(this).prop('id'));
+				var data = {
+					'user_id': user_id,
+					'memo': currMemo
+				}
+				
+				$.post(
+					"__URL__/updateMemo",
+					data,
+					updateMemoResponse,
+					"json"
+				);
+			}
+		});
+		
 		function activateRow($row, is_active) {
 			var $sendCbx = $row.find('input.send');
 			var user_id = $sendCbx.val();
@@ -73,6 +101,12 @@
 				slideBox(msg.text(data.info), 2000, 'red');
 			}
 		}
+		
+		function updateMemoResponse(data) {
+			slideBox(msg.text(data.info), 
+					2000, 
+					data.status == 0 ? 'red' : 'green');
+		}
 	});
 </script>
 <include file="./Tpl/Public/headend_bodystart_banner.html" />
@@ -89,6 +123,7 @@
 					<th>Email</th>
 					<th>手机</th>
 					<th>职业</th>
+					<th>备注</th>
 					<th>激活</th>
 				</tr>
 				<volist name="users" id="u" key="id">
@@ -102,6 +137,9 @@
 							<td>{$u.email}</td>
 							<td>{$u.mobile}</td>
 							<td>{$u.profession}</td>
+							<td>
+								<textarea id="memo_{$u.user_id}">{$u.memo}</textarea>
+							</td>
 							<td style="text-align:center;">
 								<input type="checkbox" checked="checked" class="activate" />
 							</td>
@@ -116,6 +154,9 @@
 							<td>{$u.email}</td>
 							<td>{$u.mobile}</td>
 							<td>{$u.profession}</td>
+							<td>
+								<textarea id="memo_{$u.user_id}">{$u.memo}</textarea>
+							</td>							
 							<td style="text-align:center;">
 								<input type="checkbox" class="activate" />
 							</td>
