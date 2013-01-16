@@ -49,6 +49,19 @@
 			window.location = "__URL__/broadcast/ids/" + ids;
 		});
 		
+		$('#downloadContacts').click(function(){
+			var ids = '';
+			$('.send:checked').each(function(index){
+				if (index == 0) {
+					ids += $(this).val();
+				} else {
+					ids += ',' + $(this).val();
+				}
+			});
+			
+			window.open("__URL__/exportUsers/ids/" + ids);
+		});
+		
 		var origMemo = '';
 		$('#userList textarea').focus(function(){
 			origMemo = $(this).val();
@@ -166,6 +179,7 @@
 			</table>
 			<div class="ctrl">
 				<label class="float_right">
+					<input type="button" value="下载联系人" class="btn" id="downloadContacts" />&nbsp;
 					<input type="button" value="发送活动通知" class="btn" id="sendEventNotice" />
 				</label>
 			</div>

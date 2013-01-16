@@ -70,5 +70,42 @@ class AdminAction extends Action {
 			}
 		}
 	}
+	
+	public function exportUsers() {
+		if (!empty($_GET['ids'])) {
+			$ids = $_GET['ids'];
+			$User = M('User');
+			if ($users = $User->where("user_id in ($ids)")
+							->field("username,email,mobile,profession,memo")
+							->select()) {
+				require_once COMMON_PATH.'/PHPExcel.php';
+				require_once COMMON_PATH.'/PHPExcel/IOFactory.php';
+				
+				$objPHPExcel = new PHPExcel();
+				$objPHPExcel->setActiveSheetIndex(0);
+				$activeSheet = $objPHPExcel->getActiveSheet();
+				
+				foreach (array_keys($users[0]) as $colNum=>$colName) {
+					$activeSheet->setCellValueByColumnAndRow($colNum, 1, $colName);
+				}
+				
+				$row = 2;
+				foreach($users as $u) {
+					foreach(array_values($u) as $colNum=>$cellVal) {
+						$activeSheet->setCellValueByColumnAndRow($colNum, $row, $cellVal);
+					}
+					$row++;
+				}
+				
+				$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
+				
+				header('Content-Type: application/vnd.ms-excel');
+				header('Content-Disposition: attachment;filename="Contacts_'.date('Ymd').'.xls"');
+				header('Cache-Control: max-age=0');
+ 
+				$objWriter->save('php://output');
+			}			
+		}
+	}
 }
 ?>
