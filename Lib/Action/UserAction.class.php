@@ -18,6 +18,7 @@ class UserAction extends Action {
 					$this->error('密码有效长度为6~12位');
 				}				
 				$User->password = sha1($User->password);
+				$User->memo = "公司：".$_POST['company']."\n微博：\nQQ：";
 				if($user_id = $User->add()) {
 					if ($admins = $User->where("is_active = 1 and is_admin = 1")
 									->field("email")
