@@ -18,7 +18,7 @@
 		width:190px;
 	}
 </style>
-<script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
+<script src="http://code.jquery.com/jquery.min.js"></script>
 <script src="__PUBLIC__/javascript/jqTools.js"></script>
 <script>
 	$(function(){
@@ -37,7 +37,8 @@
 			}
 		});
 		
-		$('#sendEventNotice').click(function(){
+		$('#downloadContacts').click(function(event){
+			event.preventDefault();
 			var ids = '';
 			$('.send:checked').each(function(index){
 				if (index == 0) {
@@ -46,10 +47,15 @@
 					ids += ',' + $(this).val();
 				}
 			});
-			window.location = "__URL__/broadcast/ids/" + ids;
+			if (ids == '') {
+				slideBox(msg.text('请在第一列勾选下载名单'), 2000, 'red');
+			} else {
+				window.open("__URL__/exportUsers/ids/" + ids);
+			}
 		});
 		
-		$('#downloadContacts').click(function(){
+		$('#sendEventNotice').click(function(event){
+			event.preventDefault();
 			var ids = '';
 			$('.send:checked').each(function(index){
 				if (index == 0) {
@@ -58,8 +64,11 @@
 					ids += ',' + $(this).val();
 				}
 			});
-			
-			window.open("__URL__/exportUsers/ids/" + ids);
+			if (ids == '') {
+				slideBox(msg.text('请在第一列勾选发送对象'), 2000, 'red');
+			} else {
+				window.location = "__URL__/broadcast/ids/" + ids;
+			}
 		});
 		
 		var origMemo = '';
